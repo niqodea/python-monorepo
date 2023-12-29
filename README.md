@@ -14,7 +14,8 @@ baz/
 │    └─── org/path/to/baz
 │         ├─── __init__.py
 │         └─── ...
-├─── assets/
+├─── tests/
+│    ├─── __init__.py
 │    └─── ...
 ├─── pyproject.toml
 ├─── poetry.lock
@@ -27,8 +28,7 @@ The `src` directory contains the source code of the project.
 The presence of the chain of directories `org/path/to/baz` reflects in the module path of the project `org.path.to.baz`.
 This effectively embeds the project as part of a single hierarchy of modules rooted in `org` for the user, while preserving separations from other projects in the monorepo for the maintainer.
 
-The `assets` directory contains files used by the project that are not Python code.
-Not all projects need this directory, so its presence is optional.
+The `tests` directory contains tests for the project, written using the [pytest](https://docs.pytest.org) framework.
 
 The `pyproject.toml` file is used by [Poetry](https://python-poetry.org/).
 It contains metadata for the project and its dependencies.
@@ -42,16 +42,28 @@ We use [Black](https://black.readthedocs.io) for formatting (config file `.black
 Some of the packages in the monorepo, such as internal libraries, will be installed by other projects.
 To keep things simple, packages in the monorepo are not published to a package index and are instead installed by specifying their relative path in the monorepo.
 This makes it easy to have a clear view of the whole code we are running and promotes alignment of dependencies across different projects.
-It also allows packages to store assets in their own project root, enhancing cohesiveness.
 
-We also install monorepo packages in editable mode.
-The benefits of this are twofold: it allows packages to store assets in their own project root, enhancing cohesiveness, and it makes it easy to edit libraries on the go and immediately commit changes to git.
+We also install monorepo packages in editable mode[^1], meaning that the Python files installed in the environment are exactly those in the monorepo and not a copy of them.
+This makes it easy to edit libraries on the go, test them, and commit changes to git.
 
 Note that, by installing a package with its path, we are effectively forcing all installing projects to share a single version of it: the one materialized in the last git commit.
 It is important to keep this in mind, as breaking changes should ideally be addressed in all installing projects in the same pull request to not break anything.
 
 Since only the last version of a package can be installed, a `CHANGELOG.md` file listing changes of each version loses some of its effectiveness.
 Still, it might be beneficial to have one to make it easy for other devs to learn what's new in a library, especially in the case of a large monorepo.
+
+[^1]: This is accomplished by specifying `develop = true` when defining the Poetry dependency in `pyproject.toml`
+
+## Project assets
+
+It might be necessary for a Python library or application to have access to some asset files to work correctly.
+By convention, we decide to store these assets in an `assets` directory located at the root of the project.
+This has the advantage of increased cohesiveness compared to using a location external to the project directory.
+It also avoids polluting the `src` directory with large, non-code files.
+
+Important to note: when installing a package that uses these assets, we need to ensure installation in editable mode.
+This is crucial because a non-editable installation would separate the source directory from the project, hindering access to the assets.
+Fortunately, this aligns with our best practice of installing all monorepo packages in editable mode.
 
 ## Using Breadcrumbs
 

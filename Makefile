@@ -3,5 +3,8 @@ install:
 
 lint:
 	black --config .black.toml . && \
-	mypy . && \
+	mypy --config-file .mypy.ini . && \
 	ruff --config .ruff.toml --fix .
+
+test:
+	pytest .

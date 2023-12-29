@@ -15,11 +15,13 @@ python = "^3.11"
 pillow = "^10.1"
 
 [tool.poetry.group.dev.dependencies]
+# testing
+pytest = "^7.4"
+# linting
 black = "^23.12"
 mypy = "^1.8"
 ruff = "^0.1"
-
-[tool.poetry.group.typing.dependencies]
+# typing
 types-pillow = "^10.1"
 
 [build-system]
