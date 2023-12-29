@@ -1,0 +1,28 @@
+[tool.poetry]
+name = "Delta"
+version = "1.0.0"
+description = "The Delta Python application"
+authors = [
+    "Alice <alice@org.com>",
+    "Charles <charles@org.com>",
+]
+
+# Ref: https://github.com/python-poetry/poetry/issues/167#issuecomment-530895533
+packages = [ { include = "org", from = "src" } ]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+numpy = "^1.26"
+
+bar = { path = ".root.bc/libs/bar", develop = true }
+foo = { path = ".root.bc/libs/foo", develop = true }
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12"
+mypy = "^1.8"
+ruff = "^0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
