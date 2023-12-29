@@ -1,0 +1,25 @@
+[tool.poetry]
+name = "Gamma"
+version = "1.0.0"
+description = "The Gamma Python application"
+authors = [
+    "Derek <derek@org.com>",
+    "Elise <elise@org.com>",
+]
+
+# Ref: https://github.com/python-poetry/poetry/issues/167#issuecomment-530895533
+packages = [ { include = "org", from = "src" } ]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+
+bar = { path = ".root.bc/libs/bar", develop = true }
+
+[tool.poetry.group.dev.dependencies]
+black = "^23.12"
+mypy = "^1.8"
+ruff = "^0.1"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
