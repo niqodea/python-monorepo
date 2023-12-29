@@ -1,0 +1,5 @@
+[tool.black]
+include = '^/src/'
+# Ignore dot directories, specifically breadcrumbs, which cause an endless loop in
+# black's file discovery
+exclude = '(?:/\.[^/]+/)'

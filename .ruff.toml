@@ -1,0 +1,18 @@
+src = ["src"]
+
+[lint]
+select = [
+    "B",  # flake8-bugbear
+    "E",  # pycodestyle
+    "F",  # Pyflakes
+    "I",  # isort
+    "SIM",  # flake8-simplify
+    "UP",  # pyupgrade
+]
+
+[lint.isort]
+known-first-party = ["org"]
+
+# Ignore unused imports in __init__.py files (would need __all__ otherwise)
+[per-file-ignores]
+"__init__.py" = ["F401"]
