@@ -2,7 +2,7 @@ import json
 
 import numpy as np
 
-from .utils import ASSETS_PATH
+from org.lib.bar.utils import ASSETS_PATH
 
 
 def get_fibonacci() -> np.ndarray:

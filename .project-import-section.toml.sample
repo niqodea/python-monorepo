@@ -1,0 +1,2 @@
+[lint.isort.sections]
+"project" = ["org.path.to.project"]

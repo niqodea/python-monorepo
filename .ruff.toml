@@ -1,3 +1,7 @@
+# Project-specific file assigning the project module path to the "project" isort section
+# The position of the project section is specified below
+extend = ".project-import-section.toml"
+
 src = ["src"]
 
 [lint]
@@ -12,6 +16,14 @@ select = [
 
 [lint.isort]
 known-first-party = ["org"]
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "project",
+    "local-folder",
+]
 
 # Ignore unused imports in __init__.py files (would need __all__ otherwise)
 [per-file-ignores]

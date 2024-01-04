@@ -3,7 +3,7 @@ import numpy as np
 from org.lib.bar import get_primes
 from org.lib.foo import load_image
 
-from .utils import ASSETS_PATH
+from org.app.delta.utils import ASSETS_PATH
 
 
 def main() -> None:
